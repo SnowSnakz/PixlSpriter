@@ -61,6 +61,8 @@ namespace PixlSpriter
 
             PrimaryColorWindow.Hide();
             SecondaryColorWindow.Hide();
+
+            ToolOptions.Content = context.ActiveTool.OptionsPanel;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -87,8 +89,8 @@ namespace PixlSpriter
                 ColorBtn.MouseLeftButtonDown += ColorBtn_MouseLeftButtonDown;
                 ColorBtn.MouseRightButtonDown += ColorBtn_MouseRightButtonDown;
                 ColorBtn.Background = new SolidColorBrush(color);
-                ColorBtn.Width = 16;
-                ColorBtn.Height = 16;
+                ColorBtn.Width = 24;
+                ColorBtn.Height = 24;
                 ColorBtn.MouseWheel += ColorList_MouseWheel;
                 ColorBtn.BorderBrush = Brushes.Black;
                 ColorList.Children.Add(ColorBtn);
@@ -279,15 +281,28 @@ namespace PixlSpriter
             }
         }
 
+        private void ColorPanel_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                e.Handled = true;
+                ColorList_MouseWheel(sender, e);
+                return;
+            }
+        }
+
         private void ColorList_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            double delta = e.Delta / 100;
-            foreach(UIElement element in ColorList.Children)
+            if((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
-                if(element is Border border)
+                double delta = e.Delta / 100;
+                foreach (UIElement element in ColorList.Children)
                 {
-                    border.Width += delta;
-                    border.Height += delta;
+                    if (element is Border border)
+                    {
+                        border.Width += delta;
+                        border.Height += delta;
+                    }
                 }
             }
         }

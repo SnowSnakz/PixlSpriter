@@ -61,7 +61,7 @@
                                         <RowDefinition Height="24"/>
                                         <RowDefinition Height="24"/>
                                     </Grid.RowDefinitions>
-                                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" CanContentScroll="True" PanningMode="VerticalOnly">
+                                    <ScrollViewer x:Name="ColorPanel" PreviewMouseWheel="ColorPanel_PreviewMouseWheel" ScrollViewer.VerticalScrollBarVisibility="Visible" CanContentScroll="True" PanningMode="VerticalOnly">
                                         <ScrollViewer.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="0"/>
@@ -83,13 +83,17 @@
                                 <local:Editor x:Name="Editor"/>
                             </tk:LayoutDocument>
                         </tk:LayoutDocumentPane>
-                        <tk:LayoutAnchorablePane DockWidth="150">
-                            <tk:LayoutAnchorable x:Name="ToolBox" Title="Toolbox" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
-                                <WrapPanel x:Name="ToolList"/>
-                            </tk:LayoutAnchorable>
-                            <tk:LayoutAnchorable x:Name="ToolOptions" Title="Tool Options" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
-                            </tk:LayoutAnchorable>
-                        </tk:LayoutAnchorablePane>
+                        <tk:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="200">
+                            <tk:LayoutAnchorablePane>
+                                <tk:LayoutAnchorable x:Name="ToolBox" Title="Toolbox" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
+                                    <WrapPanel x:Name="ToolList"/>
+                                </tk:LayoutAnchorable>
+                            </tk:LayoutAnchorablePane>
+                            <tk:LayoutAnchorablePane>
+                                <tk:LayoutAnchorable x:Name="ToolOptions" Title="Tool Options" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
+                                </tk:LayoutAnchorable>
+                            </tk:LayoutAnchorablePane>
+                        </tk:LayoutAnchorablePaneGroup>
                     </tk:LayoutPanel>
                     <tk:LayoutAnchorablePane>
                         <tk:LayoutAnchorable Title="Timeline">
