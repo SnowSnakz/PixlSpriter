@@ -16,8 +16,10 @@ namespace PixlSpriter
         public static PencilTool Instance { get; private set; }
 
         public PencilTool() {
-            previewLayer = new EditorImageLayer();
-            previewLayer.pixlmap = new Pixlmap(1,1,true);
+            previewLayer = new EditorImageLayer
+            {
+                pixlmap = new Pixlmap(1, 1, true)
+            };
             EditorContext.Toolbox = this;
             Instance = this;
         }

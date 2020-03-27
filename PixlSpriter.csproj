@@ -93,6 +93,7 @@
     <Compile Include="EditorImageLayer.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IUndoable.cs" />
+    <Compile Include="LineTool.cs" />
     <Compile Include="PanTool.cs" />
     <Compile Include="PencilTool.cs" />
     <Compile Include="Pixlmap.cs" />
@@ -164,6 +165,9 @@
   <ItemGroup>
     <Resource Include="res\cursors\grab_hand_closed.cur" />
     <Resource Include="res\cursors\grab_hand.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\tools\linetool.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

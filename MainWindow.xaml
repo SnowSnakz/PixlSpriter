@@ -84,7 +84,7 @@
                             </tk:LayoutDocument>
                         </tk:LayoutDocumentPane>
                         <tk:LayoutAnchorablePane DockWidth="150">
-                            <tk:LayoutAnchorable Title="Toolbox" CanDockAsTabbedDocument="False">
+                            <tk:LayoutAnchorable x:Name="ToolBox" Title="Toolbox" CanDockAsTabbedDocument="False">
                                 <WrapPanel x:Name="ToolList"/>
                             </tk:LayoutAnchorable>
                             <tk:LayoutAnchorable Title="Tool Options">

@@ -174,7 +174,7 @@ namespace PixlSpriter
             int cval = ColorToCVal(context, val);
             DrawLineSquare(a, b, radius, cval);
         }
-        public void DrawLinetCircle(EditorContext context, Point a, Point b, int radius, Color val)
+        public void DrawLineCircle(EditorContext context, Point a, Point b, int radius, Color val)
         {
             int cval = ColorToCVal(context, val);
             DrawLineCircle(a, b, radius, cval);

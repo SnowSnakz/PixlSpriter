@@ -207,15 +207,16 @@ namespace PixlSpriter
         {
             new PanTool();
             new PencilTool();
+            new LineTool();
         }
 
         private void ViewToolbox_Checked(object sender, RoutedEventArgs e)
         {
-
+            ToolBox?.Show();
         }
         private void ViewToolbox_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            ToolBox?.Hide();
         }
 
         private void EditMain(object sender, RoutedEventArgs e)
@@ -247,8 +248,8 @@ namespace PixlSpriter
             {
                 if(element is Border border)
                 {
-                    border.Width = border.Width + delta;
-                    border.Height = border.Height + delta;
+                    border.Width += delta;
+                    border.Height += delta;
                 }
             }
         }
