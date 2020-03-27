@@ -69,11 +69,11 @@
                                         </ScrollViewer.Resources>
                                         <WrapPanel x:Name="ColorList" Background="Transparent" Grid.Row="0" MouseWheel="ColorList_MouseWheel"/>
                                     </ScrollViewer>
-                                    <Border x:Name="PrimaryColorDisplay" CornerRadius="5" Grid.Row="1" Background="White">
-                                        <TextBlock x:Name="PrimaryColorText" VerticalAlignment="Center">Primary Color</TextBlock>
+                                    <Border x:Name="PrimaryColorDisplay" CornerRadius="5" Grid.Row="1" Background="White" MouseUp="PrimaryColorDisplay_MouseUp">
+                                        <TextBlock x:Name="PrimaryColorText" VerticalAlignment="Center" IsHitTestVisible="False">Primary Color</TextBlock>
                                     </Border>
-                                    <Border x:Name="SecondaryColorDisplay" CornerRadius="5" Grid.Row="2" Background="Black">
-                                        <TextBlock x:Name="SecondaryColorText" VerticalAlignment="Center">Secondary Color</TextBlock>
+                                    <Border x:Name="SecondaryColorDisplay" CornerRadius="5" Grid.Row="2" Background="Black" MouseUp="SecondaryColorDisplay_MouseUp">
+                                        <TextBlock x:Name="SecondaryColorText" VerticalAlignment="Center" IsHitTestVisible="False">Secondary Color</TextBlock>
                                     </Border>
                                 </Grid>
                             </tk:LayoutAnchorable>
@@ -84,11 +84,10 @@
                             </tk:LayoutDocument>
                         </tk:LayoutDocumentPane>
                         <tk:LayoutAnchorablePane DockWidth="150">
-                            <tk:LayoutAnchorable x:Name="ToolBox" Title="Toolbox" CanDockAsTabbedDocument="False">
+                            <tk:LayoutAnchorable x:Name="ToolBox" Title="Toolbox" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
                                 <WrapPanel x:Name="ToolList"/>
                             </tk:LayoutAnchorable>
-                            <tk:LayoutAnchorable Title="Tool Options">
-                                
+                            <tk:LayoutAnchorable x:Name="ToolOptions" Title="Tool Options" CanDockAsTabbedDocument="False" CanClose="False" CanHide="True">
                             </tk:LayoutAnchorable>
                         </tk:LayoutAnchorablePane>
                     </tk:LayoutPanel>

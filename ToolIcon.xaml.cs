@@ -32,7 +32,11 @@ namespace PixlSpriter
 
         private void IconBtn_Click(object sender, RoutedEventArgs e)
         {
-            Context.SetActiveTool(Tool);
+            if(Context.ActiveTool != Tool)
+            {
+                Context.SetActiveTool(Tool);
+                Context.MainWindow.ToolOptions.Content = Tool.OptionsPanel;
+            }
         }
     }
 }

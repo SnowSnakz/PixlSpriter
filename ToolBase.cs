@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -19,6 +21,8 @@ namespace PixlSpriter
         public virtual bool ReserveMiddleClick { get => false; }
         public virtual bool ReserveSpaceKey { get => false; }
         public virtual bool DisablePanning { get => false; }
+
+        public Grid OptionsPanel { get; } = new Grid();
 
         public virtual void Activated(EditorContext context) { }
         public virtual void Deactivated(EditorContext context) { }

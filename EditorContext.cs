@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace PixlSpriter
@@ -36,8 +37,8 @@ namespace PixlSpriter
 
         private Color prcolor;
         private Color srcolor;
-        private int picolor;
-        private int sicolor;
+        private int picolor = -1;
+        private int sicolor = -1;
 
         public Color RPrimaryColor {
             get => prcolor; 
@@ -83,42 +84,92 @@ namespace PixlSpriter
             get => picolor;
             set
             {
-                picolor = value;
-                Color c = ColorPalette[picolor];
-                MainWindow.PrimaryColorDisplay.Background = new SolidColorBrush(c);
-                MainWindow.PrimaryColorText.Text = $"Index {picolor}";
-
-                if (c.A <= 128)
+                if (picolor >= 0)
                 {
-                    MainWindow.PrimaryColorText.Foreground = Brushes.White;
-                    return;
+                    if (MainWindow.ColorList.Children[picolor] is Border border)
+                    {
+                        if (sicolor == picolor)
+                        {
+                            border.BorderBrush = Brushes.Black;
+                        }
+                        else border.BorderThickness = new Thickness(0, 0, 0, 0);
+                    }
                 }
 
-                int avg = (c.R + c.G + c.B) / 3;
+                if (value >= 0)
+                {
+                    picolor = value;
 
-                if (avg >= 128) MainWindow.PrimaryColorText.Foreground = Brushes.Black;
-                else MainWindow.PrimaryColorText.Foreground = Brushes.White;
+                    if (MainWindow.ColorList.Children[picolor] is Border border)
+                    {
+                        if (sicolor == picolor) border.BorderBrush = new LinearGradientBrush(Colors.White, Colors.Black, 90);
+                        else border.BorderBrush = Brushes.White;
+
+                        border.BorderThickness = new Thickness(2, 2, 2, 2);
+                    }
+
+                    Color c = ColorPalette[picolor];
+                    MainWindow.PrimaryColorDisplay.Background = new SolidColorBrush(c);
+
+                    MainWindow.PrimaryColorText.Text = $"Index {picolor}";
+
+                    if (c.A <= 128)
+                    {
+                        MainWindow.PrimaryColorText.Foreground = Brushes.White;
+                        return;
+                    }
+
+                    int avg = (c.R + c.G + c.B) / 3;
+
+                    if (avg >= 128) MainWindow.PrimaryColorText.Foreground = Brushes.Black;
+                    else MainWindow.PrimaryColorText.Foreground = Brushes.White;
+                }
             }
         }
-        public int ISecondaryColor {
+        public int ISecondaryColor
+        {
             get => sicolor;
             set
             {
-                sicolor = value;
-                Color c = ColorPalette[sicolor];
-                MainWindow.SecondaryColorDisplay.Background = new SolidColorBrush(c);
-                MainWindow.SecondaryColorText.Text = $"Index {sicolor}";
-
-                if (c.A <= 128)
+                if (sicolor >= 0)
                 {
-                    MainWindow.SecondaryColorText.Foreground = Brushes.White;
-                    return;
+                    if (MainWindow.ColorList.Children[sicolor] is Border border)
+                    {
+                        if (sicolor == picolor)
+                        {
+                            border.BorderBrush = Brushes.White;
+                        }
+                        else border.BorderThickness = new Thickness(0, 0, 0, 0);
+                    }
                 }
 
-                int avg = (c.R + c.G + c.B) / 3;
+                if (value >= 0)
+                {
+                    sicolor = value;
 
-                if (avg >= 128) MainWindow.SecondaryColorText.Foreground = Brushes.Black;
-                else MainWindow.SecondaryColorText.Foreground = Brushes.White;
+                    if (MainWindow.ColorList.Children[sicolor] is Border border)
+                    {
+                        if (sicolor == picolor) border.BorderBrush = new LinearGradientBrush(Colors.White, Colors.Black, 90);
+                        else border.BorderBrush = Brushes.Black;
+
+                        border.BorderThickness = new Thickness(2, 2, 2, 2);
+                    }
+
+                    Color c = ColorPalette[sicolor];
+                    MainWindow.SecondaryColorDisplay.Background = new SolidColorBrush(c);
+                    MainWindow.SecondaryColorText.Text = $"Index {sicolor}";
+
+                    if (c.A <= 128)
+                    {
+                        MainWindow.SecondaryColorText.Foreground = Brushes.White;
+                        return;
+                    }
+
+                    int avg = (c.R + c.G + c.B) / 3;
+
+                    if (avg >= 128) MainWindow.SecondaryColorText.Foreground = Brushes.Black;
+                    else MainWindow.SecondaryColorText.Foreground = Brushes.White;
+                }
             }
         }
 

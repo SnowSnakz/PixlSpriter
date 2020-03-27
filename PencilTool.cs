@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -15,6 +16,11 @@ namespace PixlSpriter
     {
         public static PencilTool Instance { get; private set; }
 
+        CheckBox UI_BrushIsSquare;
+        CheckBox UI_PixelPerfect;
+        TextBox  UI_BrushSize;
+        TextBlock UI_BrushSizeLabel;
+
         public PencilTool() {
             previewLayer = new EditorImageLayer
             {
@@ -22,6 +28,81 @@ namespace PixlSpriter
             };
             EditorContext.Toolbox = this;
             Instance = this;
+
+            UI_BrushIsSquare = new CheckBox();
+            UI_BrushIsSquare.IsChecked = true;
+            UI_BrushIsSquare.Checked += UI_BrushIsSquare_Checked;
+            UI_BrushIsSquare.Unchecked += UI_BrushIsSquare_Unchecked;
+            UI_BrushIsSquare.Content = new TextBlock() { Text = "Circle Brush" };
+            UI_PixelPerfect = new CheckBox();
+            UI_PixelPerfect.IsChecked = true;
+            UI_PixelPerfect.Checked += UI_PixelPerfect_Checked;
+            UI_PixelPerfect.Unchecked += UI_PixelPerfect_Unchecked;
+            UI_PixelPerfect.Content = new TextBlock() { Text = "Pixel Perfect" };
+            UI_BrushSize = new TextBox();
+            UI_BrushSize.PreviewTextInput += UI_BrushSize_PreviewTextInput;
+            UI_BrushSize.MouseWheel += UI_BrushSize_MouseWheel;
+            UI_BrushSize.Text = "1";
+            UI_BrushSize.VerticalAlignment = VerticalAlignment.Center;
+            UI_BrushSizeLabel = new TextBlock() { Text = "Brush Size", TextAlignment = TextAlignment.Right, Padding = new Thickness(0, 0, 8, 0), VerticalAlignment = VerticalAlignment.Center };
+
+            OptionsPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(128, GridUnitType.Star) });
+            OptionsPanel.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(128, GridUnitType.Star) });
+            OptionsPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(32, GridUnitType.Pixel) });
+            OptionsPanel.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(32, GridUnitType.Pixel) });
+
+            OptionsPanel.Children.Add(UI_BrushIsSquare);
+            OptionsPanel.Children.Add(UI_PixelPerfect);
+            OptionsPanel.Children.Add(UI_BrushSize);
+            OptionsPanel.Children.Add(UI_BrushSizeLabel);
+
+            Grid.SetColumn(UI_BrushIsSquare, 0);
+            Grid.SetRow(UI_BrushIsSquare, 0);
+            Grid.SetColumn(UI_PixelPerfect, 1);
+            Grid.SetRow(UI_PixelPerfect, 0);
+            Grid.SetColumn(UI_BrushSizeLabel, 0);
+            Grid.SetRow(UI_BrushSizeLabel, 1);
+            Grid.SetColumn(UI_BrushSize, 1);
+            Grid.SetRow(UI_BrushSize, 1);
+        }
+
+        private void UI_PixelPerfect_Unchecked(object sender, RoutedEventArgs e)
+        {
+            pixelPerfect = false;
+        }
+
+        private void UI_PixelPerfect_Checked(object sender, RoutedEventArgs e)
+        {
+            pixelPerfect = true;
+        }
+
+        private void UI_BrushSize_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            brushWidth += e.Delta / 120;
+            UI_BrushSize.Text = brushWidth.ToString();
+        }
+
+        private void UI_BrushSize_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            for(int i = 0; i < e.Text.Length; i++)
+            {
+                char c = e.Text[i];
+                if(!char.IsDigit(c))
+                {
+                    e.Text.Remove(i, 1);
+                }
+            }
+            e.Handled = true;
+        }
+
+        private void UI_BrushIsSquare_Unchecked(object sender, RoutedEventArgs e)
+        {
+            brushIsSquare = true;
+        }
+
+        private void UI_BrushIsSquare_Checked(object sender, RoutedEventArgs e)
+        {
+            brushIsSquare = false;
         }
 
         public override string Name => "Pencil Tool";

@@ -52,15 +52,22 @@ namespace PixlSpriter
         }
         EditorContext context;
 
+        ColorWindow PrimaryColorWindow, SecondaryColorWindow;
+
         private void InitializePanels()
         {
+            PrimaryColorWindow = new ColorWindow(true, context);
+            SecondaryColorWindow = new ColorWindow(false, context);
+
+            PrimaryColorWindow.Hide();
+            SecondaryColorWindow.Hide();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTools();
-            InitializePanels();
             InitializeContext();
+            InitializePanels();
             UpdateColor();
 
             Closing += MainWindow_Closing;
@@ -83,6 +90,7 @@ namespace PixlSpriter
                 ColorBtn.Width = 16;
                 ColorBtn.Height = 16;
                 ColorBtn.MouseWheel += ColorList_MouseWheel;
+                ColorBtn.BorderBrush = Brushes.Black;
                 ColorList.Children.Add(ColorBtn);
             }
         }
@@ -238,6 +246,36 @@ namespace PixlSpriter
                         // TODO: Create the selection tool, and implement these features
                         break;
                 }
+            }
+        }
+
+        private void PrimaryColorDisplay_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if(sender is Border border)
+            {
+                SecondaryColorWindow.Hide();
+                PrimaryColorWindow.Show();
+
+                Point windowPoint = border.PointToScreen(new Point(-(PrimaryColorWindow.ActualWidth / 2) + border.ActualWidth / 2, -PrimaryColorWindow.ActualHeight));
+
+                PrimaryColorWindow.ColorCanvas.SelectedColor = context.RPrimaryColor;
+                PrimaryColorWindow.Top = windowPoint.Y;
+                PrimaryColorWindow.Left = windowPoint.X;
+            }
+        }
+
+        private void SecondaryColorDisplay_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Border border)
+            {
+                PrimaryColorWindow.Hide();
+                SecondaryColorWindow.Show();
+
+                Point windowPoint = border.PointToScreen(new Point(-(SecondaryColorWindow.ActualWidth / 2) + border.ActualWidth / 2, -SecondaryColorWindow.ActualHeight));
+
+                SecondaryColorWindow.ColorCanvas.SelectedColor = context.RSecondaryColor;
+                SecondaryColorWindow.Top = windowPoint.Y;
+                SecondaryColorWindow.Left = windowPoint.X;
             }
         }
 
