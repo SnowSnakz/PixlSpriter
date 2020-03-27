@@ -1,0 +1,103 @@
+﻿<Controls:MetroWindow x:Class="PixlSpriter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:tk="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:PixlSpriter"
+        mc:Ignorable="d"
+        Title="PixlSpriter" Height="450" Width="800" TitleCharacterCasing="Normal">
+    <Grid x:Name="GridContent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Open Recent"/>
+                <Separator/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Save As"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" Click="EditMain"/>
+                <MenuItem Header="Redo" Click="EditMain"/>
+                <MenuItem Header="Copy" Click="EditMain"/>
+                <MenuItem Header="Paste" Click="EditMain"/>
+                <MenuItem Header="Cut" Click="EditMain"/>
+                <MenuItem Header="Delete" Click="EditMain"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Toolbox" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True" Checked="ViewToolbox_Checked" Unchecked="ViewToolbox_Unchecked"/>
+
+            </MenuItem>
+            <MenuItem Header="Help">
+
+            </MenuItem>
+        </Menu>
+        <tk:DockingManager Grid.Row="1">
+            <tk:DockingManager.Theme>
+                <tk:Vs2013DarkTheme>
+                </tk:Vs2013DarkTheme>
+            </tk:DockingManager.Theme>
+            <tk:LayoutRoot>
+                <tk:LayoutPanel Orientation="Vertical">
+                    <tk:LayoutPanel Orientation="Horizontal">
+                        <tk:LayoutAnchorablePane DockWidth="150">
+                            <tk:LayoutAnchorable Title="Colors" CanDockAsTabbedDocument="False">
+                                <Grid>
+                                    <Grid.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="4"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="24"/>
+                                        <RowDefinition Height="24"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" CanContentScroll="True" PanningMode="VerticalOnly">
+                                        <ScrollViewer.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="0"/>
+                                            </Style>
+                                        </ScrollViewer.Resources>
+                                        <WrapPanel x:Name="ColorList" Background="Transparent" Grid.Row="0" MouseWheel="ColorList_MouseWheel"/>
+                                    </ScrollViewer>
+                                    <Border x:Name="PrimaryColorDisplay" CornerRadius="5" Grid.Row="1" Background="White">
+                                        <TextBlock x:Name="PrimaryColorText" VerticalAlignment="Center">Primary Color</TextBlock>
+                                    </Border>
+                                    <Border x:Name="SecondaryColorDisplay" CornerRadius="5" Grid.Row="2" Background="Black">
+                                        <TextBlock x:Name="SecondaryColorText" VerticalAlignment="Center">Secondary Color</TextBlock>
+                                    </Border>
+                                </Grid>
+                            </tk:LayoutAnchorable>
+                        </tk:LayoutAnchorablePane>
+                        <tk:LayoutDocumentPane>
+                            <tk:LayoutDocument Title="Untitled-1" CanFloat="False" CanMove="False" x:Name="StarterDocument">
+                                <local:Editor x:Name="Editor"/>
+                            </tk:LayoutDocument>
+                        </tk:LayoutDocumentPane>
+                        <tk:LayoutAnchorablePane DockWidth="150">
+                            <tk:LayoutAnchorable Title="Toolbox" CanDockAsTabbedDocument="False">
+                                <WrapPanel x:Name="ToolList"/>
+                            </tk:LayoutAnchorable>
+                            <tk:LayoutAnchorable Title="Tool Options">
+                                
+                            </tk:LayoutAnchorable>
+                        </tk:LayoutAnchorablePane>
+                    </tk:LayoutPanel>
+                    <tk:LayoutAnchorablePane>
+                        <tk:LayoutAnchorable Title="Timeline">
+                        </tk:LayoutAnchorable>
+                    </tk:LayoutAnchorablePane>
+                </tk:LayoutPanel>
+            </tk:LayoutRoot>
+        </tk:DockingManager>
+    </Grid>
+</Controls:MetroWindow>
