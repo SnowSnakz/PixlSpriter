@@ -16,7 +16,9 @@ namespace PixlSpriter
     public partial class MainWindow : MetroWindow
     {
         readonly DiscordRpcClient Discord;
-       
+
+        Editor Editor;
+
         public void Update()
         {
             ToolList.Children.Clear();
@@ -126,10 +128,15 @@ namespace PixlSpriter
                 RPrimaryColor = Colors.White,
                 RSecondaryColor = Colors.Black,
                 CurrentLayer = 0,
-                EditorControl = Editor,
                 PrimaryColorIndexed = false,
                 SecondaryColorIndexed = false
             };
+
+            context.EditorControl = new Editor(context);
+            Editor = context.EditorControl;
+
+            StarterDocument.Content = Editor;
+
             context.ColorPalette.Add(Color.FromRgb(255, 0, 64));
             context.ColorPalette.Add(Color.FromRgb(19, 19, 19));
             context.ColorPalette.Add(Color.FromRgb(27, 27, 27));
@@ -200,7 +207,6 @@ namespace PixlSpriter
             context.ColorPalette.Add(Colors.Black);
             context.SetActiveTool(PencilTool.Instance);
             UpdateLayout();
-            Editor.context = context;
 
             Editor.ImagePanel.Margin = new Thickness(128, 128, 0, 0);
             Pixlmap baseImage = new Pixlmap((int)context.CanvasSize.Width, (int)context.CanvasSize.Height, false);
@@ -209,7 +215,6 @@ namespace PixlSpriter
                 pixlmap = baseImage,
                 image = baseImage.GetImage(context)
             });
-            Editor.UpdateImageLayers = true;
             Update();
         }
 

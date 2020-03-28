@@ -20,9 +20,9 @@ namespace PixlSpriter
     /// </summary>
     public partial class Editor : UserControl
     {
-        public List<EditorImageLayer> Images { get; } = new List<EditorImageLayer>();
+        public EventList<EditorImageLayer> Images { get => context.Layers; }
         private bool uil = false;
-        public bool UpdateImageLayers { get => uil; set { uil = value; if (uil) InvalidateVisual(); } }
+        public bool UpdateImageLayers { get => uil; set { uil = value; InvalidateVisual(); } }
 
         public EditorContext context;
 
@@ -35,11 +35,16 @@ namespace PixlSpriter
             context.EditorControl.ImagePanel.Margin = margin;
         }
 
-        public Editor()
+        public Editor(EditorContext context)
         {
+            this.context = context;
             InitializeComponent();
             Application.Current.MainWindow.KeyUp += Grid_KeyUp;
             Application.Current.MainWindow.KeyDown += Grid_KeyDown;
+            Images.OnAdd += Images_OnAdd;
+            Images.OnRemove += Images_OnRemove;
+            Images.OnSet += Images_OnSet;
+            Images.OnClear += Images_OnClear;
         }
 
         private void EventBase()
@@ -223,20 +228,38 @@ namespace PixlSpriter
 
             if(UpdateImageLayers)
             {
-                UpdateImageLayers = false;
-
-                ImagePanel.Children.Clear();
-                foreach (EditorImageLayer layer in Images)
+                for(int i = 0; i < Images.Count; i++)
                 {
-                    if(layer.control != null)
-                    {
-                        ImagePanel.Children.Add(layer.control);
-                    }
+                    if (ImagePanel.Children[i] is Image img) img.Source = Images[i].image;
                 }
             }
 
             base.OnRender(drawingContext);
             Render?.Invoke(context, drawingContext);
+        }
+
+        private bool Images_OnClear()
+        {
+            ImagePanel.Children.Clear();
+            return true;
+        }
+
+        private EditorImageLayer Images_OnSet(int arg1, EditorImageLayer arg2)
+        {
+            if(ImagePanel.Children[arg1] is Image img) img.Source = arg2.image;
+            return arg2;
+        }
+
+        private bool Images_OnRemove(int arg1, EditorImageLayer arg2)
+        {
+            ImagePanel.Children.RemoveAt(arg1);
+            return true;
+        }
+
+        private EditorImageLayer Images_OnAdd(int arg1, EditorImageLayer arg2)
+        {
+            ImagePanel.Children.Add(new Image() { Source = arg2.image });
+            return arg2;
         }
 
         private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)

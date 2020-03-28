@@ -100,8 +100,12 @@
     </Compile>
     <Compile Include="EditorContext.cs" />
     <Compile Include="EditorImageLayer.cs" />
+    <Compile Include="EventList.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IUndoable.cs" />
+    <Compile Include="LayerView.xaml.cs">
+      <DependentUpon>LayerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LineTool.cs" />
     <Compile Include="PanTool.cs" />
     <Compile Include="PencilTool.cs" />
@@ -116,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

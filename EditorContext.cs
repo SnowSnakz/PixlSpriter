@@ -24,6 +24,8 @@ namespace PixlSpriter
             return Tools.AsReadOnly();
         }
 
+        public EventList<EditorImageLayer> Layers { get; } = new EventList<EditorImageLayer>();
+
         public ToolBase ActiveTool { get; private set; }
 
         public Size CanvasSize { get; set; }

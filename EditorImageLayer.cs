@@ -11,6 +11,7 @@ namespace PixlSpriter
 {
     public class EditorImageLayer
     {
+        public bool PreviewLayer { get; set; }
         public Pixlmap pixlmap;
         public Guid ID { get; } = Guid.NewGuid();
         private ImageSource imgsrc;

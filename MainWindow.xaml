@@ -80,7 +80,6 @@
                         </tk:LayoutAnchorablePane>
                         <tk:LayoutDocumentPane>
                             <tk:LayoutDocument Title="Untitled-1" CanFloat="False" CanMove="False" x:Name="StarterDocument">
-                                <local:Editor x:Name="Editor"/>
                             </tk:LayoutDocument>
                         </tk:LayoutDocumentPane>
                         <tk:LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="200">
@@ -96,7 +95,7 @@
                         </tk:LayoutAnchorablePaneGroup>
                     </tk:LayoutPanel>
                     <tk:LayoutAnchorablePane>
-                        <tk:LayoutAnchorable Title="Timeline">
+                        <tk:LayoutAnchorable Title="Layers" ToolTip="Timeline is coming in a future update!">
                         </tk:LayoutAnchorable>
                     </tk:LayoutAnchorablePane>
                 </tk:LayoutPanel>
